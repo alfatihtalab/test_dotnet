@@ -1,0 +1,160 @@
+Sure! To create an API to retrieve an invoice from the database using the models we defined, we can use ASP.NET Core to set up the API endpoint. Below, I'll walk you through setting up a basic API controller and mapping a function to get an invoice along with its details.
+
+### Setting Up the API
+
+1. **Install ASP.NET Core Packages**:
+   Make sure you have the necessary ASP.NET Core packages installed.
+
+   ```sh
+   dotnet add package Microsoft.AspNetCore
+   dotnet add package Microsoft.AspNetCore.Mvc
+   dotnet add package Microsoft.EntityFrameworkCore
+   dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+   ```
+
+2. **Configure DbContext**:
+   Ensure your `ApplicationContext` is properly configured.
+
+   ```csharp
+   using Microsoft.EntityFrameworkCore;
+
+   public class ApplicationContext : DbContext
+   {
+       public DbSet<User> Users { get; set; }
+       public DbSet<ProductCategory> ProductCategories { get; set; }
+       public DbSet<ProductBrand> ProductBrands { get; set; }
+       public DbSet<Product> Products { get; set; }
+       public DbSet<CustomerCategory> CustomerCategories { get; set; }
+       public DbSet<CustomerArea> CustomerAreas { get; set; }
+       public DbSet<Customer> Customers { get; set; }
+       public DbSet<Sales> Sales { get; set; }
+       public DbSet<SalesDetails> SalesDetails { get; set; }
+
+       protected override void OnModelCreating(ModelBuilder modelBuilder)
+       {
+           modelBuilder.Entity<SalesDetails>()
+               .HasKey(sd => new { sd.InvoiceCode, sd.Sno });
+
+           modelBuilder.Entity<SalesDetails>()
+               .HasOne(sd => sd.Sales)
+               .WithMany(s => s.SalesDetails)
+               .HasForeignKey(sd => sd.InvoiceCode);
+       }
+
+       protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+       {
+           optionsBuilder.UseSqlServer(@"Server=your_server;Database=your_database;Trusted_Connection=True;");
+       }
+   }
+   ```
+
+3. **Create the API Controller**:
+   Define a controller to handle the API requests.
+
+   ```csharp
+   using Microsoft.AspNetCore.Mvc;
+   using Microsoft.EntityFrameworkCore;
+   using System.Linq;
+   using System.Threading.Tasks;
+
+   [Route("api/[controller]")]
+   [ApiController]
+   public class SalesController : ControllerBase
+   {
+       private readonly ApplicationContext _context;
+
+       public SalesController(ApplicationContext context)
+       {
+           _context = context;
+       }
+
+       // GET: api/Sales/{invoiceCode}
+       [HttpGet("{invoiceCode}")]
+       public async Task<ActionResult<Sales>> GetInvoice(string invoiceCode)
+       {
+           var invoice = await _context.Sales
+               .Include(s => s.SalesDetails)
+               .FirstOrDefaultAsync(s => s.InvoiceCode == invoiceCode);
+
+           if (invoice == null)
+           {
+               return NotFound();
+           }
+
+           return invoice;
+       }
+   }
+   ```
+
+4. **Startup Configuration**:
+   Configure your ASP.NET Core application in the `Startup.cs` file.
+
+   ```csharp
+   using Microsoft.AspNetCore.Builder;
+   using Microsoft.AspNetCore.Hosting;
+   using Microsoft.EntityFrameworkCore;
+   using Microsoft.Extensions.Configuration;
+   using Microsoft.Extensions.DependencyInjection;
+   using Microsoft.Extensions.Hosting;
+
+   public class Startup
+   {
+       public Startup(IConfiguration configuration)
+       {
+           Configuration = configuration;
+       }
+
+       public IConfiguration Configuration { get; }
+
+       public void ConfigureServices(IServiceCollection services)
+       {
+           services.AddDbContext<ApplicationContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+           services.AddControllers();
+       }
+
+       public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+       {
+           if (env.IsDevelopment())
+           {
+               app.UseDeveloperExceptionPage();
+           }
+
+           app.UseHttpsRedirection();
+           app.UseRouting();
+           app.UseAuthorization();
+
+           app.UseEndpoints(endpoints =>
+           {
+               endpoints.MapControllers();
+           });
+       }
+   }
+   ```
+
+5. **Configure appsettings.json**:
+   Ensure you have your connection string configured in `appsettings.json`.
+
+   ```json
+   {
+       "ConnectionStrings": {
+           "DefaultConnection": "Server=your_server;Database=your_database;Trusted_Connection=True;"
+       },
+       "Logging": {
+           "LogLevel": {
+               "Default": "Information",
+               "Microsoft": "Warning",
+               "Microsoft.Hosting.Lifetime": "Information"
+           }
+       },
+       "AllowedHosts": "*"
+   }
+   ```
+
+### Running the API
+
+- Run your application using `dotnet run`.
+- Make a GET request to `https://localhost:5001/api/Sales/{invoiceCode}` (replace with your actual server address) to retrieve an invoice.
+
+This setup will allow you to retrieve invoices along with their details from the database using an API endpoint. The `GetInvoice` method in the `SalesController` fetches the invoice and its associated details from the database and returns it as a JSON response.

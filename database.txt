@@ -1,0 +1,58 @@
+
+User [id, username, password]
+
+
+ProductCategory[code, name]
+ProductBrand [code, name]
+
+Product [code, name, categoryCode, brandCode, imagePath, SaleRate, CostRate]
+
+
+CustomerCategory [code, name]
+
+CustomerArea [code, name]
+
+Customer [code, name, address, AreaCode, CategoryCode ]
+
+Sales[InvoiceCode, Date, CustomerCode, Address, Total]
+
+SalesDetails[InvoiceCode, Date, Sno, StockCode, StockType, Qty, Amount, Discount]
+
+
+
+Server=localhost;Database=master;Trusted_Connection=True;
+
+ASP.NET MVC
+ASP.NET Web API
+ASP.NET Core
+Entity Framework (EF) 6
+SQL Server
+Entity Framework Core
+
+dotnet new sln
+dotnet new console --output HelloCS
+dotnet sln add HelloCS
+
+
+EF
+install
+dotnet add package Microsoft.EntityFrameworkCore.SqServer
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+
+after defining DBContext and EF models
+for modeling: https://learn.microsoft.com/en-us/ef/core/modeling/
+
+for hashing password 
+dotnet add package BCrypt.Net-Next
+
+dotnet tool install --global dotnet-ef
+
+
+DB Migration:
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+another add:
+dotnet ef migrations add AddBlogCreatedTimestamp
+
+
