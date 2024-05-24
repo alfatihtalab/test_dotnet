@@ -43,6 +43,10 @@ dotnet add package Microsoft.EntityFrameworkCore.Tools
 after defining DBContext and EF models
 for modeling: https://learn.microsoft.com/en-us/ef/core/modeling/
 
+https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli
+
+
+
 for hashing password 
 dotnet add package BCrypt.Net-Next
 
