@@ -1,0 +1,114 @@
+/docs
+├── /policies
+│   ├── privacy_policy.docx
+│   ├── return_policy.docx
+│   └── terms_of_service.docx
+├── /procedures
+│   ├── customer_service_procedures.docx
+│   └── inventory_management_procedures.docx
+└── /legal
+    ├── business_registration_certificates.pdf
+    └── contracts
+        ├── vendor_agreement.pdf
+        └── employment_contract.docx
+
+/marketing
+├── /campaigns
+│   ├── summer_sale_campaign
+│   │   ├── assets
+│   │   │   ├── banner.png
+│   │   │   └── social_media_posts
+│   │   │       ├── post1.jpg
+│   │   │       └── post2.jpg
+│   │   └── plan.pdf
+├── /branding
+│   ├── logo.png
+│   └── style_guide.pdf
+└── /strategy
+    ├── market_research_reports
+    │   ├── demographic_analysis.pdf
+    │   └── competitor_analysis.pdf
+    └── marketing_plan.docx
+
+
+/sales
+├── /crm
+│   ├── customer_database.xlsx
+│   └── sales_reports
+│       ├── monthly_sales_summary.xlsx
+│       └── quarterly_performance.pdf
+├── /leads
+│   ├── lead_generation_strategies.docx
+│   └── prospect_list.xlsx
+└── /tools
+    ├── sales_pipeline_management.xlsx
+    └── email_templates
+        ├── welcome_email.txt
+        └── follow_up_email.docx
+
+
+
+/operations
+├── /inventory
+│   ├── inventory_list.xlsx
+│   └── stock_management_procedures.docx
+├── /logistics
+│   ├── shipping_schedule.xlsx
+│   └── logistics_partner_contacts.xlsx
+└── /vendors
+    ├── supplier_contacts.xlsx
+    └── vendor_contract_templates.docx
+
+
+
+/finance
+├── /budget
+│   ├── annual_budget.xlsx
+│   └── expense_reports
+│       ├── Q1_expenses.pdf
+│       └── Q2_expenses.pdf
+├── /accounting
+│   ├── financial_statements
+│   │   ├── balance_sheet.xlsx
+│   │   └── income_statement.pdf
+│   └── invoices
+│       ├── invoice_001.pdf
+│       └── invoice_002.pdf
+└── /tax
+    ├── tax_returns
+    │   ├── annual_tax_return.pdf
+    │   └── quarterly_tax_estimate.xlsx
+    └── tax_advisor_contact_info.docx
+
+/human_resources
+├── /policies
+│   ├── employee_handbook.docx
+│   └── diversity_inclusion_policy.pdf
+├── /recruitment
+│   ├── job_descriptions
+│   │   ├── marketing_manager.docx
+│   │   └── warehouse_worker.docx
+│   └── candidate_evaluation_forms.xlsx
+└── /training
+    ├── onboarding_materials
+    │   ├── orientation_schedule.pdf
+    │   └── welcome_presentation.pptx
+    └── skills_training_programs
+        ├── customer_service_training.docx
+        └── leadership_workshop.pdf
+
+
+
+/it
+├── /network
+│   ├── network_diagram.png
+│   └── firewall_configuration.docx
+├── /software
+│   ├── licenses
+│   │   ├── Adobe_Photoshop_license.pdf
+│   │   └── Microsoft_Office_license.docx
+│   └── IT_systems_documentation.docx
+└── /security
+    ├── cybersecurity_policy.docx
+    └── backup_and_recovery_plan.pdf
+
